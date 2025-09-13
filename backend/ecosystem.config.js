@@ -1,7 +1,5 @@
-const dotenvConfig = require('dotenv').config;
-
-dotenvConfig({ path: '.env' });
-dotenvConfig({ path: '.env.deploy' });
+require('dotenv').config({ path: '.env' });
+require('dotenv').config({ path: '.env.deploy' });
 
 const {
   JWT_SECRET, DEPLOY_USER, DEPLOY_HOST, DEPLOY_REF, DEPLOY_PATH, DEPLOY_REPO,
@@ -24,7 +22,7 @@ module.exports = {
       repo: DEPLOY_REPO,
       path: DEPLOY_PATH,
       key: '~/.ssh/vm_access/private_key',
-      'pre-deploy': `scp ./nodejs-pm2-deploy/backend/.env ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}`,
+      'pre-deploy': `scp ./.env ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}`,
       'post-deploy': 'cd ../source/backend && npm i && pm2 start ecosystem.config.js --env production && pm2 save',
     },
   },
