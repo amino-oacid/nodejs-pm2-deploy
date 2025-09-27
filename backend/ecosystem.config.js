@@ -7,7 +7,7 @@ const {
 
 module.exports = {
   apps: [{
-    name: 'mesto-backend',
+    name: 'backend',
     script: 'npm run start',
     env_production: {
       NODE_ENV: 'production',
