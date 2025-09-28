@@ -3,13 +3,12 @@ const dotenvConfig = require('dotenv').config;
 dotenvConfig({ path: '.env.deploy' });
 
 const {
-  DEPLOY_USER, DEPLOY_HOST, DEPLOY_REF, DEPLOY_PATH, DEPLOY_REPO,
+  DEPLOY_USER, DEPLOY_HOST, DEPLOY_REF, DEPLOY_PATH, DEPLOY_REPO, NGINX_STATIC_PATH
 } = process.env;
 
 module.exports = {
   apps: [{
     name: 'frontend',
-    script: './build/index.html'
   }],
   deploy: {
     production: {
@@ -18,7 +17,7 @@ module.exports = {
       ref: DEPLOY_REF,
       repo: DEPLOY_REPO,
       path: DEPLOY_PATH,
-      'post-deploy': 'cd frontend && npm i && export NODE_OPTIONS=--openssl-legacy-provider && npm run build',
+      'post-deploy': 'cd frontend && npm i && export NODE_OPTIONS=--openssl-legacy-provider && npm run build && mkdir -p ' + (NGINX_STATIC_PATH || '/var/www/html') + ' && cp -r build/* ' + (NGINX_STATIC_PATH || '/var/www/html') + '/', 
     },
   },
 };
