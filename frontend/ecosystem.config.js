@@ -17,7 +17,7 @@ module.exports = {
       ref: DEPLOY_REF,
       repo: DEPLOY_REPO,
       path: DEPLOY_PATH,
-      'post-deploy': 'cd frontend && npm i && export NODE_OPTIONS=--openssl-legacy-provider && npm run build && mkdir -p ' + (NGINX_STATIC_PATH || '/var/www/html') + ' && cp -r build/* ' + (NGINX_STATIC_PATH || '/var/www/html') + '/', 
+      'post-deploy': 'cd frontend && npm i && export NODE_OPTIONS=--openssl-legacy-provider && npm run build && sudo mkdir -p ' + (NGINX_STATIC_PATH || '/var/www/html') + ' && sudo cp -r build/* ' + (NGINX_STATIC_PATH || '/var/www/html') + '/ && sudo chown -R www-data:www-data ' + (NGINX_STATIC_PATH || '/var/www/html') + ' && sudo chmod -R 755 ' + (NGINX_STATIC_PATH || '/var/www/html'), 
     },
   },
 };
